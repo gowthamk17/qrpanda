@@ -5,7 +5,7 @@ function App() {
 
   return (
     <div className='App'>
-      <div id="qrcode"></div>
+      <div id="qrcode">QrPanda</div>
     </div>
   )
 }
