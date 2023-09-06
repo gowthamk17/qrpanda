@@ -1,3 +1,4 @@
+import QRCode from 'qrcode'
 import './App.css'
 
 function App() {
