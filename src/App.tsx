@@ -4,7 +4,7 @@ function App() {
 
   return (
     <div>
-      <h1>QR Panda</h1>
+      <h1>{import.meta.env.VITE_APP_NAME}</h1>
     </div>
   )
 }
