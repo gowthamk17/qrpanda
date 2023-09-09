@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import QRCode from 'qrcode'
-import './App.css'
 import Header from './Components/Header'
 
 function App() {
@@ -9,15 +8,15 @@ function App() {
   const [urlText, setUrlText] = useState("");
 
   function generateQR() {
-    if(urlText != "") {
+    if (urlText != "") {
       QRCode.toCanvas(canvas, urlText, (err) => {
-        if(err) console.error(err); 
+        if (err) console.error(err);
       })
     }
   }
 
   function updateUrlText(e) {
-      setUrlText(e.target.value);
+    setUrlText(e.target.value);
   }
 
   function downloadQR() {
@@ -37,12 +36,13 @@ function App() {
   return (
     <div className='app'>
       <Header />
-      <div className='tab'>QR Generator</div>
+      <div className='text-3xl font-bold underline'>QR Generator</div>
       <input type="text" placeholder="Enter a Text..." id='inputBox' onChange={updateUrlText} />
       <button onClick={generateQR}>Generate QR</button>
       <canvas id='qrcode'></canvas>
       <button onClick={downloadQR}>Download</button>
     </div>
+
   )
 }
 
