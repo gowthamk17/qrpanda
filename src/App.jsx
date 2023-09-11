@@ -9,14 +9,26 @@ function App() {
 
   function generateQR() {
     if (urlText != "") {
-      QRCode.toCanvas(canvas, urlText, (err) => {
-        if (err) console.error(err);
-      })
+      QRCode.toCanvas(
+        canvas,
+        urlText,
+        {
+          color: { dark: '#22C55EFF', light: '#112233FF' },
+          version: 3,
+          errorCorrectionLevel: 'M',
+          margin: 2,
+          maskPattern: 7,
+          scale: 10
+        },
+        (err) => {
+          if (err) console.error(err);
+        })
     }
   }
 
   function updateUrlText(e) {
     setUrlText(e.target.value);
+    generateQR();
   }
 
   function downloadQR() {
@@ -34,15 +46,19 @@ function App() {
   }
 
   return (
-    <div className='app'>
+    <div className='h-screen bg-blue-50 max-w-6xl mx-auto'>
       <Header />
-      <div className='text-3xl font-bold underline'>QR Generator</div>
-      <input type="text" placeholder="Enter a Text..." id='inputBox' onChange={updateUrlText} />
-      <button onClick={generateQR}>Generate QR</button>
+      <h2 className='text-3xl text-center font-bold mb-2 xl:text-4xl'>QR Code Maker for your needs</h2>
+      <h3 className='text-xl text-center mb-4'>QR Code Generator</h3>
+
+      <div className='p-6 w-fit bg-white shadow-md rounded-md max-md:mx-auto'>
+        <h4 className='my-2 text-2xl font-semibold text-center'>Enter your website URL</h4>
+        <input type="text" placeholder="https://example.com" id='inputBox' onChange={updateUrlText} className='my-2 mx-auto p-2 max-w-96 rounded border-2 focus:outline-none focus:border-green-500' />
+        <button onClick={generateQR} className='p-2 rounded font-semibold bg-green-500 text-white block'>Generate QR</button>
+      </div>
       <canvas id='qrcode'></canvas>
       <button onClick={downloadQR}>Download</button>
     </div>
-
   )
 }
 
