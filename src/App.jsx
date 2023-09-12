@@ -9,6 +9,7 @@ function App() {
   const [urlText, setUrlText] = useState("https://github.com/gowthamk17");
   const [imgType, setImgType] = useState('image/png');
   const [margin, setMargin] = useState(4);
+  const [ECLevel, setEcLevel] = useState('H');
 
   useEffect(() => {
     generateQR();
@@ -21,7 +22,7 @@ function App() {
       {
         width: 250,
         color: { dark: '#22C55EFF', light: '#112233FF' },
-        errorCorrectionLevel: 'M',
+        errorCorrectionLevel: ECLevel,
         margin: margin,
       },
       (err) => {
@@ -42,6 +43,10 @@ function App() {
     if(Number(e.target.value) != NaN) {
       setMargin(e.target.value);
     }
+  }
+
+  function updateECLevel(e) {
+    setEcLevel(e.target.value);
   }
 
   function downloadQR() {
@@ -68,8 +73,22 @@ function App() {
         <div className='w-full max-w-lg lg:w-2/3 p-6 m-2 bg-white text-gray-800 shadow-md rounded-md max-md:mx-auto'>
           <h4 className='my-2 text-2xl font-semibold text-center'>Enter your website URL</h4>
           <input type="text" placeholder="https://example.com" id='inputBox' onInput={updateUrlText} className='w-full max-w-lg my-3 p-3 rounded border-2 focus:outline-none focus:border-green-500' />
-          <label htmlFor="qr-margin" className='my-2 text-xl font-semibold mr-4'>QR Margin</label>
-          <input type="number" name="qr-margin" onInput={updateMargin} defaultValue={4} min={0} max={32} className='my-2 p-2 rounded border-2 focus:outline-none focus:border-green-500'/>
+          
+          <div className='flex items-center'>
+            <label htmlFor="qr-margin" className='my-2 text-lg w-1/2 font-semibold mr-4'>QR Margin</label>
+            <input type="number" name="qr-margin" onInput={updateMargin} defaultValue={4} min={0} max={32} className='my-2 p-2 w-1/2 rounded border-2 focus:outline-none focus:border-green-500'/>
+          </div>
+          
+          <div className="flex items-center">
+            <label htmlFor="qr-ec" className='my-2 text-lg w-1/2 block font-semibold mr-4'>Error Correction Level</label>
+            <select name="qr-ec" value={ECLevel} onChange={updateECLevel} className='my-2 mx-1 p-2 w-1/2 inline mb-4 rounded border-2 focus:outline-none focus:border-green-500'>
+              <option value="L">Low</option>
+              <option value="M">Medium</option>
+              <option value="Q">Quartile</option>
+              <option value="H">High</option>
+            </select>
+          </div>
+          
           <button onClick={generateQR} className='p-2 mx-auto rounded font-semibold bg-green-500 text-white block'>Generate QR</button>
         </div>
 
