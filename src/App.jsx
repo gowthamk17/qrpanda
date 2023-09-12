@@ -5,9 +5,10 @@ import Hero from './Components/Hero'
 
 function App() {
 
-  const canvas = document.getElementById('qrcode')
+  const canvas = document.getElementById('qrcode');
   const [urlText, setUrlText] = useState("https://github.com/gowthamk17");
-  const [imgType, setImgType] = useState('image/png')
+  const [imgType, setImgType] = useState('image/png');
+  const [margin, setMargin] = useState(4);
 
   useEffect(() => {
     generateQR();
@@ -21,7 +22,7 @@ function App() {
         width: 250,
         color: { dark: '#22C55EFF', light: '#112233FF' },
         errorCorrectionLevel: 'M',
-        margin: 4,
+        margin: margin,
       },
       (err) => {
         if (err) console.error(err);
@@ -35,6 +36,12 @@ function App() {
 
   function updateImgType(e) {
     setImgType(e.target.dataset.img);
+  }
+
+  function updateMargin(e) {
+    if(Number(e.target.value) != NaN) {
+      setMargin(e.target.value);
+    }
   }
 
   function downloadQR() {
@@ -61,6 +68,8 @@ function App() {
         <div className='w-full max-w-lg lg:w-2/3 p-6 m-2 bg-white text-gray-800 shadow-md rounded-md max-md:mx-auto'>
           <h4 className='my-2 text-2xl font-semibold text-center'>Enter your website URL</h4>
           <input type="text" placeholder="https://example.com" id='inputBox' onInput={updateUrlText} className='w-full max-w-lg my-3 p-3 rounded border-2 focus:outline-none focus:border-green-500' />
+          <label htmlFor="qr-margin" className='my-2 text-xl font-semibold mr-4'>QR Margin</label>
+          <input type="number" name="qr-margin" onInput={updateMargin} defaultValue={4} min={0} max={32} className='my-2 p-2 rounded border-2 focus:outline-none focus:border-green-500'/>
           <button onClick={generateQR} className='p-2 mx-auto rounded font-semibold bg-green-500 text-white block'>Generate QR</button>
         </div>
 
