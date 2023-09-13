@@ -40,9 +40,7 @@ function App() {
   }
 
   function updateMargin(e) {
-    if(Number(e.target.value) != NaN) {
       setMargin(e.target.value);
-    }
   }
 
   function updateECLevel(e) {
