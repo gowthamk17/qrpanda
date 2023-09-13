@@ -6,35 +6,35 @@ import { VitePWA } from 'vite-plugin-pwa'
 export default defineConfig({
   plugins: [
     react(),
-    VitePWA({  
-      registerType: 'prompt',  
-      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],  
-      manifest: {  
+    VitePWA({
+      registerType: 'prompt',
+      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
+      manifest: {
         name: 'QR Panda',
-        short_name: 'QR Panda',  
-        description: 'QR Code Generator free open source',  
-        theme_color: '#ffffff',  
-        start_url: '/',  
-        icons: [  
-          {  
-            src: 'pwa-192x192.png',  
-            sizes: '192x192',  
-            type: 'image/png',  
-          },  
-          {  
-            src: 'pwa-512x512.png',  
-            sizes: '512x512',  
-            type: 'image/png',  
-          },  
-          {  
-            src: 'pwa-512x512.png',  
-            sizes: '512x512',  
-            type: 'image/png',  
-            purpose: 'any maskable',  
-          },  
-        ],  
-      },  
-    }),  
+        short_name: 'QR Panda',
+        description: 'QR Code Generator free open source',
+        theme_color: '#ffffff',
+        start_url: 'https://gowthamk17.github.io/qrpanda/',
+        icons: [
+          {
+            src: 'pwa-192x192.png',
+            sizes: '192x192',
+            type: 'image/png',
+          },
+          {
+            src: 'pwa-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+          },
+          {
+            src: 'pwa-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'any maskable',
+          },
+        ],
+      },
+    }),
   ],
   base: '/qrpanda/'
 })
