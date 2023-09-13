@@ -7,14 +7,13 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
-      registerType: 'prompt',
+      registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
       manifest: {
         name: 'QR Panda',
         short_name: 'QR Panda',
         description: 'QR Code Generator free open source',
         theme_color: '#ffffff',
-        start_url: 'https://gowthamk17.github.io/qrpanda/',
         icons: [
           {
             src: 'pwa-192x192.png',
