@@ -110,7 +110,7 @@ function App() {
         </div>
 
       </div>
-      <div className='text-center mb-4'>Made By 👨‍💻 <a href="https://github.com/gowthamk17/" className='text-blue-600'>Gowthamk17</a></div>
+      <div className='text-center mb-4'>Made By 👨‍💻 <a href="https://github.com/gowthamk17/" target='_blank' className='text-blue-600'>Gowthamk17</a></div>
     </div>
   )
 }
