@@ -10,10 +10,12 @@ function App() {
   const [imgType, setImgType] = useState('image/png');
   const [margin, setMargin] = useState(4);
   const [ECLevel, setEcLevel] = useState('H');
+  const [qrBGval, setQrBGval] = useState('#112233');
+  const [qrFGval, setQrFGval] = useState('#22C55E');
 
   useEffect(() => {
     generateQR();
-  }, []);
+  }, [urlText, margin, ECLevel, qrBGval, qrFGval]);
 
   function generateQR() {
     QRCode.toCanvas(
@@ -21,7 +23,7 @@ function App() {
       urlText,
       {
         width: 250,
-        color: { dark: '#22C55EFF', light: '#112233FF' },
+        color: { dark: qrFGval, light: qrBGval },
         errorCorrectionLevel: ECLevel,
         margin: margin,
       },
@@ -32,7 +34,6 @@ function App() {
 
   function updateUrlText(e) {
     setUrlText(e.target.value);
-    generateQR();
   }
 
   function updateImgType(e) {
@@ -40,11 +41,19 @@ function App() {
   }
 
   function updateMargin(e) {
-      setMargin(e.target.value);
+    setMargin(e.target.value);
   }
 
   function updateECLevel(e) {
     setEcLevel(e.target.value);
+  }
+
+  function updateBackground(e) {
+    setQrBGval(e.target.value);
+  }
+
+  function updateForeGround(e) {
+    setQrFGval(e.target.value);
   }
 
   function downloadQR() {
@@ -66,17 +75,17 @@ function App() {
       <Header />
       <Hero />
 
-      <div className='flex flex-col items-center lg:items-stretch justify-center lg:flex-row lg:mx-auto mx-4 mb-12'>
+      <div className='flex flex-col items-center lg:items-stretch justify-center lg:flex-row lg:mx-auto mx-4 mb-4'>
 
         <div className='w-full max-w-lg lg:w-2/3 p-6 m-2 bg-white text-gray-800 shadow-md rounded-md max-md:mx-auto'>
           <h4 className='my-2 text-2xl font-semibold text-center'>Enter your website URL</h4>
           <input type="text" placeholder="https://example.com" id='inputBox' onInput={updateUrlText} className='w-full max-w-lg my-3 p-3 rounded border-2 focus:outline-none focus:border-green-500' />
-          
+
           <div className='flex items-center'>
             <label htmlFor="qr-margin" className='my-2 text-lg w-1/2 font-semibold mr-4'>QR Margin</label>
-            <input type="number" name="qr-margin" onInput={updateMargin} defaultValue={4} min={0} max={32} className='my-2 p-2 w-1/2 rounded border-2 focus:outline-none focus:border-green-500'/>
+            <input type="number" name="qr-margin" onChange={updateMargin} defaultValue={4} min={0} max={32} className='my-2 p-2 w-1/2 rounded border-2 focus:outline-none focus:border-green-500' />
           </div>
-          
+
           <div className="flex items-center">
             <label htmlFor="qr-ec" className='my-2 text-lg w-1/2 block font-semibold mr-4'>Error Correction Level</label>
             <select name="qr-ec" value={ECLevel} onChange={updateECLevel} className='my-2 mx-1 p-2 w-1/2 inline mb-4 rounded border-2 focus:outline-none focus:border-green-500'>
@@ -86,8 +95,18 @@ function App() {
               <option value="H">High</option>
             </select>
           </div>
-          
-          <button onClick={generateQR} className='p-2 mx-auto rounded font-semibold bg-green-500 text-white block'>Generate QR</button>
+
+          <div className='flex items-center'>
+            <label htmlFor="qr-background" className='my-2 text-lg w-1/2 font-semibold mr-4'>BackGround Color</label>
+            <input type="color" name="qr-background" onChange={updateBackground} defaultValue={qrBGval} className='my-2 mx-1 p-1 w-1/2 h-10 inline rounded border-2 focus:outline-none focus:border-green-500' />
+          </div>
+
+          <div className='flex items-center'>
+            <label htmlFor="qr-foreground" className='my-2 text-lg w-1/2 font-semibold mr-4'>ForeGround Color</label>
+            <input type="color" name="qr-foreground" onChange={updateForeGround} defaultValue={qrFGval} className='my-2 mx-1 p-1 w-1/2 h-10 inline rounded border-2 focus:outline-none focus:border-green-500' />
+          </div>
+
+          <button onClick={generateQR} className='p-2 mx-auto my-4 rounded font-semibold bg-green-500 text-white block'>Generate QR</button>
         </div>
 
         <div className='w-full max-w-lg lg:w-1/3 p-6 m-2 bg-white text-gray-800 shadow-md rounded-md max-md:mx-auto'>
@@ -110,7 +129,10 @@ function App() {
         </div>
 
       </div>
-      <div className='text-center mb-4'>Made By 👨‍💻 <a href="https://github.com/gowthamk17/" target='_blank' className='text-blue-600'>Gowthamk17</a></div>
+
+      <div className='p-1'>
+        <h2 className='text-center m-4 mb-8'>Made By 👨‍💻 <a href="https://github.com/gowthamk17/" target='_blank' className='text-blue-600'>Gowthamk17</a></h2>
+      </div>
     </div>
   )
 }
