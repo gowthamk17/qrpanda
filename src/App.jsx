@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react'
 import QRCode from 'qrcode'
 import Header from './Components/Header'
 import Hero from './Components/Hero'
+import reactImg from './assets/react.svg'
+import viteImg from './assets/vite.svg'
+import twImg from './assets/tailwind.svg'
 
 function App() {
 
@@ -130,8 +133,14 @@ function App() {
 
       </div>
 
-      <div className='p-1'>
-        <h2 className='text-center m-4 mb-8'>Made By 👨‍💻 <a href="https://github.com/gowthamk17/" target='_blank' className='text-blue-600'>Gowthamk17</a></h2>
+      <div className='p-2'>
+        <h2 className='text-center m-4'>Made By 👨‍💻 <a href="https://github.com/gowthamk17/" target='_blank' className='text-blue-600'>Gowthamk17</a></h2>
+        <div className='flex justify-center items-center gap-1 mb-8'>
+          <h2>Build Width</h2>
+          <img src={reactImg} alt="React"/>
+          <img src={viteImg} alt="Vite" />
+          <img src={twImg} alt="TailWind" />
+        </div>
       </div>
     </div>
   )
