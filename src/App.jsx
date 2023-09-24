@@ -14,7 +14,8 @@ function App() {
   const [margin, setMargin] = useState(4);
   const [ECLevel, setEcLevel] = useState('H');
   const [qrBGval, setQrBGval] = useState('#112233');
-  const [qrFGval, setQrFGval] = useState('#22C55E');
+  const [qrFGval, setQrFGval] = useState(getDefaultBG());
+  
 
   useEffect(() => {
     generateQR();
@@ -33,6 +34,14 @@ function App() {
       (err) => {
         if (err) console.error(err);
       })
+  }
+
+  function getDefaultBG() {
+    if(document.body.classList.contains('dark')) {
+      return '#BFDBFF';
+    } else {
+      return '#22C55E';
+    }
   }
 
   function updateUrlText(e) {
@@ -74,24 +83,24 @@ function App() {
   }
 
   return (
-    <div className='h-screen bg-blue-50 max-w-6xl mx-auto border-black'>
+    <div className='h-screen bg-blue-50 dark:bg-blue-200 max-w-6xl mx-auto border-black'>
       <Header />
       <Hero />
 
       <div className='flex flex-col items-center lg:items-stretch justify-center lg:flex-row lg:mx-auto mx-4 mb-4'>
 
-        <div className='w-full max-w-lg lg:w-2/3 p-6 m-2 bg-white text-gray-800 shadow-md rounded-md max-md:mx-auto'>
+        <div className='w-full max-w-lg lg:w-2/3 p-6 m-2 bg-white dark:bg-blue-50 text-gray-800 shadow-md rounded-md max-md:mx-auto'>
           <h4 className='my-2 text-2xl font-semibold text-center'>Enter your website URL</h4>
-          <input type="text" placeholder="https://example.com" id='inputBox' onInput={updateUrlText} className='w-full max-w-lg my-3 p-3 rounded border-2 focus:outline-none focus:border-green-500' />
+          <input type="text" placeholder="https://example.com" id='inputBox' onInput={updateUrlText} className='w-full max-w-lg my-3 p-3 rounded border-2 focus:outline-none focus:border-green-500 dark:focus:border-blue-400 dark:bg-blue-50' />
 
           <div className='flex items-center'>
             <label htmlFor="qr-margin" className='my-2 text-lg w-1/2 font-semibold mr-4'>QR Margin</label>
-            <input type="number" name="qr-margin" onChange={updateMargin} defaultValue={4} min={0} max={32} className='my-2 p-2 w-1/2 rounded border-2 focus:outline-none focus:border-green-500' />
+            <input type="number" name="qr-margin" onChange={updateMargin} defaultValue={4} min={0} max={32} className='my-2 p-2 w-1/2 rounded border-2 focus:outline-none focus:border-green-500 dark:focus:border-blue-400 dark:bg-blue-50' />
           </div>
 
           <div className="flex items-center">
             <label htmlFor="qr-ec" className='my-2 text-lg w-1/2 block font-semibold mr-4'>Error Correction Level</label>
-            <select name="qr-ec" value={ECLevel} onChange={updateECLevel} className='my-2 mx-1 p-2 w-1/2 inline mb-4 rounded border-2 focus:outline-none focus:border-green-500'>
+            <select name="qr-ec" value={ECLevel} onChange={updateECLevel} className='my-2 mx-1 p-2 w-1/2 inline mb-4 rounded border-2 focus:outline-none focus:border-green-500 dark:focus:border-blue-400 dark:bg-blue-50'>
               <option value="L">Low</option>
               <option value="M">Medium</option>
               <option value="Q">Quartile</option>
@@ -101,33 +110,33 @@ function App() {
 
           <div className='flex items-center'>
             <label htmlFor="qr-background" className='my-2 text-lg w-1/2 font-semibold mr-4'>BackGround Color</label>
-            <input type="color" name="qr-background" onChange={updateBackground} defaultValue={qrBGval} className='my-2 mx-1 p-1 w-1/2 h-10 inline rounded border-2 focus:outline-none focus:border-green-500' />
+            <input type="color" name="qr-background" onChange={updateBackground} defaultValue={qrBGval} className='my-2 mx-1 p-1 w-1/2 h-10 inline rounded border-2 focus:outline-none focus:border-green-500 dark:focus:border-blue-400 dark:bg-blue-50' />
           </div>
 
           <div className='flex items-center'>
             <label htmlFor="qr-foreground" className='my-2 text-lg w-1/2 font-semibold mr-4'>ForeGround Color</label>
-            <input type="color" name="qr-foreground" onChange={updateForeGround} defaultValue={qrFGval} className='my-2 mx-1 p-1 w-1/2 h-10 inline rounded border-2 focus:outline-none focus:border-green-500' />
+            <input type="color" name="qr-foreground" onChange={updateForeGround} defaultValue={qrFGval} className='my-2 mx-1 p-1 w-1/2 h-10 inline rounded border-2 focus:outline-none focus:border-green-500 dark:focus:border-blue-400 dark:bg-blue-50' />
           </div>
 
-          <button onClick={generateQR} className='p-2 mx-auto my-4 rounded font-semibold bg-green-500 text-white block'>Generate QR</button>
+          <button onClick={generateQR} className='p-2 mx-auto my-4 rounded font-semibold bg-green-500 text-white block dark:bg-blue-400'>Generate QR</button>
         </div>
 
-        <div className='w-full max-w-lg lg:w-1/3 p-6 m-2 bg-white text-gray-800 shadow-md rounded-md max-md:mx-auto'>
+        <div className='w-full max-w-lg lg:w-1/3 p-6 m-2 bg-white dark:bg-blue-50 text-gray-800 shadow-md rounded-md max-md:mx-auto'>
           <h4 className='my-2 text-2xl font-semibold text-center'>Preview QR Code</h4>
           <canvas id='qrcode' className='border-1 my-3 p-3 mx-auto rounded'></canvas>
           <div className='flex gap-2 justify-center mb-4'>
-            <button className='px-3 py-1 border-2 text-gray-500 font-semibold rounded focus:text-green-500 focus:border-green-500 focus:outline-none'
+            <button className='px-3 py-1 border-2 text-gray-500 font-semibold rounded focus:text-green-500 focus:border-green-500 dark:focus:text-blue-400 dark:focus:border-blue-400 focus:outline-none'
               data-img="image/png"
               onFocus={updateImgType}>PNG</button>
-            <button className='px-3 py-1 border-2 text-gray-500 font-semibold rounded focus:text-green-500 focus:border-green-500 focus:outline-none'
+            <button className='px-3 py-1 border-2 text-gray-500 font-semibold rounded focus:text-green-500 focus:border-green-500 focus:outline-none dark:focus:text-blue-400 dark:focus:border-blue-400'
               data-img="image/jpeg"
               onFocus={updateImgType}>JPEG</button>
-            <button className='px-3 py-1 border-2 text-gray-500 font-semibold rounded focus:text-green-500 focus:border-green-500 focus:outline-none'
+            <button className='px-3 py-1 border-2 text-gray-500 font-semibold rounded focus:text-green-500 focus:border-green-500 focus:outline-none dark:focus:text-blue-400 dark:focus:border-blue-400'
               data-img="image/webp"
               onFocus={updateImgType}>WEBP</button>
           </div>
           <button
-            className='p-2 mx-auto rounded font-semibold bg-green-500 text-white block'
+            className='p-2 mx-auto rounded font-semibold bg-green-500 text-white block dark:bg-blue-400'
             onClick={downloadQR}>Download QR Code</button>
         </div>
 
